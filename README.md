@@ -1,11 +1,12 @@
 # ERPNext_Installation
 
-# 0.前期准备
+# 前期准备
 ```
 Debian 11+
 宝塔
 yarn 1.12+
 pip 20+
+redis
 wkhtmltopdf (version 0.12.5 with patched qt)
 mysql-mariadb
 ```
@@ -31,16 +32,32 @@ wkhtmltopdf安装
 [Github链接](https://github.com/wkhtmltopdf/wkhtmltopdf/releases)
 
 ## 安装python
-安装 python 3.10.13
-`sudo wget https://mirrors.huaweicloud.com/python/3.10.13/Python-3.10.13.tgz`  
-解压
-`sudo tar -xvf Python-3.10.13,tgz` 
-配置编译
-`cd Python-3.10.13`
+安装 python 3.10.13  
+`sudo wget https://mirrors.huaweicloud.com/python/3.10.13/Python-3.10.13.tgz`   
+解压  
+`sudo tar -xvf Python-3.10.13,tgz`  
+配置编译  
+`cd Python-3.10.13`  
 配置  
 `sudo ./configure --enable-optimizations`  
 编译  
-·sudo make install·  
+`sudo make install`  
+添加软连接  
+`sudo update-alternatives --install /usr/bin/python python  /usr/local/bin/python3.10 1`  
+更换Pypi镜像(中国)  
+`pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`  
+## 安装环境包及redis
+`sudo apt-get install -y git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server curl xvfb libfontconfig1 libxrender1 libjpeg-dev zlib1g-dev libssl-dev libffi-dev libmysqlclient-dev`  
+`sudo apt-get install git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server python3-venv xvfb libfontconfig wkhtmltopdf -y`  
+### 配置mariadb的my.cnf
+将下文中的内容复制到my.cnf文件中[mysqld]
+```
+character-set-client-handshake = FALSE
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+```  
+[mysql]  
+`default-character-set = utf8mb4`
 
 
 
