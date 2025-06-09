@@ -41,7 +41,7 @@ wkhtmltopdf安装
 `sudo wget https://mirrors.huaweicloud.com/python/3.10.13/Python-3.10.13.tgz`   
   
 解压  
-`sudo tar -xvf Python-3.10.13,tgz`  
+`sudo tar -xvf Python-3.10.13.tgz`  
   
 配置编译  
 `cd Python-3.10.13`  
@@ -90,19 +90,23 @@ exit
 `sudo service mysql restart`
 
 # 安装bench命令控制台
->操作用当前用户而非root  
-`sudo pip3 install frappe-bench`  
+>操作用当前用户而非root
+  
+`sudo pip3 install frappe-bench` 
+  
 ## 安装frappe
 安装官方版本(github)  
 `bench init frappe --verbose`  
+  
 安装develop版本(中国gitcode)  
-
 `bench init frapp --frappe-path=https://gitcode.net/frappe/frappe.git --verbose`  
+  
 进入frappe文件夹目录  
 `cd frappe`  
   
 运行bench  
 `bench start`  
+  
 >运行bench后新开一个ssh窗口来安装frappe  
 `cd frappe`  
 
@@ -115,9 +119,11 @@ exit
 ## 安装ERPNext
 ### 下载应用
 安装官方版本(github)
-`bench get-app erpnext`  
+`bench get-app erpnext` 
+  
 安装develop版本(gitcode中国)
 `bench get-app erpnext https://gitcode.net/frappe/erpnext.git`  
+  
 ## 安装应用
 `bench --site site.local install-app erpnext`  
   
