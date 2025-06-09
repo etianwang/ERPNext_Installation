@@ -16,16 +16,16 @@ mysql-mariadb
 ```
 if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_panel.sh;else wget -O install_panel.sh https://download.bt.cn/install/install_panel.sh;fi;bash install_panel.sh ed8484bec
 ```
-
-删除宝塔安全入口
-`rm -f /www/server/panel/data/admin_path.pl`
-宝塔自选安装mysql-mariadb 10.3+
-安装npm node.js版本管理器
+  
+删除宝塔安全入口  
+`rm -f /www/server/panel/data/admin_path.pl`  
+宝塔自选安装mysql-mariadb 10.3+  
+安装npm node.js版本管理器  
 ## 添加用户
 `adduser frappe`
 ## 添加权限
-`usermod -aG sudo frappe`
->切换新用户执行接下来的安装
+`usermod -aG sudo frappe`  
+>切换新用户执行接下来的安装  
 ## 更新系统
 `sudo apt-get update && sudo apt-get upgrade -y`  
 
