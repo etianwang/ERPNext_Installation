@@ -179,7 +179,7 @@ chmod=0700
 在这个位置加上这一行，USERNAME如frappe:frappe  
 `chown=frappe:frappe`  
   
-重启supervisor
+重启supervisor  
 `sudo -A systemctl restart supervisor`  
 `sudo bench setup sudoers $(whoami)`  
 `sudo service supervisor stop`  
