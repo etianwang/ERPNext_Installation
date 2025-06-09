@@ -79,19 +79,19 @@ exit
 `sudo service mysql restart`
 
 # 安装bench命令控制台
->操作用当前用户而非root
-`sudo pip3 install frappe-bench`
+>操作用当前用户而非root  
+`sudo pip3 install frappe-bench`  
 ## 安装frappe
 安装官方版本(github)  
 `bench init frappe --verbose`  
 安装develop版本(中国gitcode)  
 
 `bench init frapp --frappe-path=https://gitcode.net/frappe/frappe.git --verbose`  
-进入frappe文件夹目录
+进入frappe文件夹目录  
 `cd frappe`  
-运行bench
+运行bench  
 `bench start`  
->运行bench后新开一个ssh窗口来安装frappe
+>运行bench后新开一个ssh窗口来安装frappe  
 `cd frappe`  
 
 ## 新建站点
@@ -142,7 +142,19 @@ sudo ln -s pwd/config/supervisor.conf /etc/supervisor/.conf.d/frappe-bench.conf
 修改supervisor配置文件  
 `sudo vim /etc/supervisor/supervisord.conf`  
 ```
-
+[unix_http_server]
+file=var/tmp/supervisord.sock
+chmod=0700
 ```
+在这个位置加上这一行，USERNAME如frappe:frappe  
+`chown=frappe:frappe`  
+重启supervisor
+`sudo -A systemctl restart supervisor`  
+`sudo bench setup sudoers $(whoami)`  
+`sudo service supervisor stop`  
+`sudo service nginx stop`  
+`sudo service supervisor start`  
+`sudo service nginx start`  
+`sudo bench setup production frappe`  
 
 
