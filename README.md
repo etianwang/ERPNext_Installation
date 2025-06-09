@@ -30,7 +30,7 @@ if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_pa
 `sudo apt-get update && sudo apt-get upgrade -y`  
 
 # 配置环境
-'sudo apt-get update && sudo apt-get install -y build-essential python3-dev python3-setuptools python3-pip python3-distutils python3.10-venv software-properties-common wkhtmltopdf redis-server mariadb-server libmysqlclient-dev libssl-dev libffi-dev libxrender1 libjpeg-dev zlib1g-dev libncurses5-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev'  
+`sudo apt-get update && sudo apt-get install -y build-essential python3-dev python3-setuptools python3-pip python3-distutils python3.10-venv software-properties-common wkhtmltopdf redis-server mariadb-server libmysqlclient-dev libssl-dev libffi-dev libxrender1 libjpeg-dev zlib1g-dev libncurses5-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev`  
 </br>
 wkhtmltopdf安装  
 
@@ -97,7 +97,7 @@ exit
 `cd frappe`  
 
 ## 新建站点
-站点名称site.local自己改
+站点名称site.local自己改  
 `bench new-site site.local`  
 `bench use site.local`  
 
