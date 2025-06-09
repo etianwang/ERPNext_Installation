@@ -35,25 +35,34 @@ if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_pa
 wkhtmltopdf安装  
 
 [Github链接](https://github.com/wkhtmltopdf/wkhtmltopdf/releases)  
-
+  
 ## 安装python
 安装 python 3.10.13  
 `sudo wget https://mirrors.huaweicloud.com/python/3.10.13/Python-3.10.13.tgz`   
+  
 解压  
 `sudo tar -xvf Python-3.10.13,tgz`  
+  
 配置编译  
 `cd Python-3.10.13`  
+  
 配置  
 `sudo ./configure --enable-optimizations`  
+  
 编译  
 `sudo make install`  
+  
 添加软连接  
 `sudo update-alternatives --install /usr/bin/python python  /usr/local/bin/python3.10 1`  
+  
 更换Pypi镜像(中国)  
 `pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`  
+  
 ## 安装环境包及redis
-`sudo apt-get install -y git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server curl xvfb libfontconfig1 libxrender1 libjpeg-dev zlib1g-dev libssl-dev libffi-dev libmysqlclient-dev`  </br>
+`sudo apt-get install -y git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server curl xvfb libfontconfig1 libxrender1 libjpeg-dev zlib1g-dev libssl-dev libffi-dev libmysqlclient-dev`  
+</br>
 `sudo apt-get install git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server python3-venv xvfb libfontconfig wkhtmltopdf -y`  
+  
 ### 配置mariadb的my.cnf
 将下文中的内容复制到my.cnf文件中[mysqld]  
 ```
@@ -91,6 +100,7 @@ exit
 `bench init frapp --frappe-path=https://gitcode.net/frappe/frappe.git --verbose`  
 进入frappe文件夹目录  
 `cd frappe`  
+  
 运行bench  
 `bench start`  
 >运行bench后新开一个ssh窗口来安装frappe  
@@ -99,6 +109,7 @@ exit
 ## 新建站点
 站点名称site.local自己改  
 `bench new-site site.local`  
+  
 `bench use site.local`  
 
 ## 安装ERPNext
@@ -109,31 +120,41 @@ exit
 `bench get-app erpnext https://gitcode.net/frappe/erpnext.git`  
 ## 安装应用
 `bench --site site.local install-app erpnext`  
+  
 ## 设置默认站点
 `bench use site.local`  
+  
 ## 重建文件
 `bench migrate` 
->如果报错，删除重装  
+  
 ### 卸载应用
+>如果报错，删除重装  
 `bench uninstall-app erpnext`  
----  
+---
+
+  
 >至此安装完毕，后续为生产环境的设置  
 
 # 设置生产环境
 启用计划程序  
 `bench --site site.local enable--scheduler`  
+  
 添加主机  
 `bench --site site.local add-to-hosts`  
+  
 关闭维护模式  
 `bench --site site.local set-maintenance-mode off`  
+  
 恢复调度程序  
 `bench --site site.local scheduler resume`  
+  
 安装snapd  
 ```nash
 sudo apt-get install snapd -y
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
-```  
+```
+  
 生产站点  
 `sudo bench setup production frappe`  
 # 安装supervisor
@@ -148,8 +169,10 @@ sudo ln -s pwd/config/supervisor.conf /etc/supervisor/.conf.d/frappe-bench.conf
 file=var/tmp/supervisord.sock
 chmod=0700
 ```
+  
 在这个位置加上这一行，USERNAME如frappe:frappe  
 `chown=frappe:frappe`  
+  
 重启supervisor
 `sudo -A systemctl restart supervisor`  
 `sudo bench setup sudoers $(whoami)`  
