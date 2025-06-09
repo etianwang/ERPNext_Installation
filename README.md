@@ -1,5 +1,5 @@
 # ERPNext_Installation
-
+# 环境安装ERPnext 带生产环境
 # 前期准备
 ```
 Debian 11+
@@ -12,7 +12,10 @@ mysql-mariadb
 ```
 # 宝塔配置
 ## 安装宝塔面板
-[宝塔](https://www.bt.cn/new/download.html)
+[宝塔](https://www.bt.cn/new/download.html)  
+```
+if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_panel.sh;else wget -O install_panel.sh https://download.bt.cn/install/install_panel.sh;fi;bash install_panel.sh ed8484bec
+```
 
 删除宝塔安全入口
 `rm -f /www/server/panel/data/admin_path.pl`
@@ -57,8 +60,89 @@ character-set-server = utf8mb4
 collation-server = utf8mb4_unicode_ci
 ```  
 [mysql]  
-`default-character-set = utf8mb4`
+`default-character-set = utf8mb4`  
 
+### 配置mariadb
+```mysql
+mysql -u root -p
+USE mysql;
+ALTER USER root@localhost IDENTIFIED VIA mysql_native_password;
+```
+>修改密码123456
 
+```mysql
+SET PASSWORD = PASSWORD('123456');
+FLUSH PRIVILEGES;
+exit
+```
+### 重启mariadb数据库
+`sudo service mysql restart`
+
+# 安装bench命令控制台
+>操作用当前用户而非root
+`sudo pip3 install frappe-bench`
+## 安装frappe
+安装官方版本(github)  
+`bench init frappe --verbose`  
+安装develop版本(中国gitcode)  
+
+`bench init frapp --frappe-path=https://gitcode.net/frappe/frappe.git --verbose`  
+进入frappe文件夹目录
+`cd frappe`  
+运行bench
+`bench start`  
+>运行bench后新开一个ssh窗口来安装frappe
+`cd frappe`  
+
+## 新建站点
+站点名称site.local自己改
+`bench new-site site.local`  
+`bench use site.local`  
+
+## 安装ERPNext
+### 下载应用
+安装官方版本(github)
+`bench get-app erpnext`  
+安装develop版本(gitcode中国)
+`bench get-app erpnext https://gitcode.net/frappe/erpnext.git`  
+## 安装应用
+`bench --site site.local install-app erpnext`  
+## 设置默认站点
+`bench use site.local`  
+## 重建文件
+`bench migrate` 
+>如果报错，删除重装  
+### 卸载应用
+`bench uninstall-app erpnext`  
+---  
+>至此安装完毕，后续为生产环境的设置  
+
+# 设置生产环境
+启用计划程序  
+`bench --site site.local enable--scheduler`  
+添加主机  
+`bench --site site.local add-to-hosts`  
+关闭维护模式  
+`bench --site site.local set-maintenance-mode off`  
+恢复调度程序  
+`bench --site site.local scheduler resume`  
+安装snapd  
+```nash
+sudo apt-get install snapd -y
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```  
+生产站点  
+`sudo bench setup production frappe`  
+# 安装supervisor
+```bash
+bench setup supervisor
+sudo ln -s pwd/config/supervisor.conf /etc/supervisor/.conf.d/frappe-bench.conf
+```  
+修改supervisor配置文件  
+`sudo vim /etc/supervisor/supervisord.conf`  
+```
+
+```
 
 
