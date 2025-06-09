@@ -27,12 +27,14 @@ if [ -f /usr/bin/curl ];then curl -sSO https://download.bt.cn/install/install_pa
 `usermod -aG sudo frappe`
 >切换新用户执行接下来的安装
 ## 更新系统
-·sudo apt-get update && sudo apt-get upgrade -y`  
+`sudo apt-get update && sudo apt-get upgrade -y`  
 
 # 配置环境
 'sudo apt-get update && sudo apt-get install -y build-essential python3-dev python3-setuptools python3-pip python3-distutils python3.10-venv software-properties-common wkhtmltopdf redis-server mariadb-server libmysqlclient-dev libssl-dev libffi-dev libxrender1 libjpeg-dev zlib1g-dev libncurses5-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev'  
+</br>
 wkhtmltopdf安装  
-[Github链接](https://github.com/wkhtmltopdf/wkhtmltopdf/releases)
+
+[Github链接](https://github.com/wkhtmltopdf/wkhtmltopdf/releases)  
 
 ## 安装python
 安装 python 3.10.13  
@@ -50,10 +52,10 @@ wkhtmltopdf安装
 更换Pypi镜像(中国)  
 `pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple`  
 ## 安装环境包及redis
-`sudo apt-get install -y git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server curl xvfb libfontconfig1 libxrender1 libjpeg-dev zlib1g-dev libssl-dev libffi-dev libmysqlclient-dev`  
+`sudo apt-get install -y git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server curl xvfb libfontconfig1 libxrender1 libjpeg-dev zlib1g-dev libssl-dev libffi-dev libmysqlclient-dev`  </br>
 `sudo apt-get install git python2-dev python3-dev python3-setuptools python3-pip python3-distutils redis-server python3-venv xvfb libfontconfig wkhtmltopdf -y`  
 ### 配置mariadb的my.cnf
-将下文中的内容复制到my.cnf文件中[mysqld]
+将下文中的内容复制到my.cnf文件中[mysqld]  
 ```
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4
